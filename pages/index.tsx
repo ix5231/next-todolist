@@ -1,17 +1,30 @@
 import * as React from 'react'
-import Link from 'next/link'
-import Layout from '../components/Layout'
 import { NextPage } from 'next'
 
+import Layout from '../components/Layout'
+import TodoInput from '../components/TodoInput'
+import TaskList from '../components/TaskList'
+
+import Task from '../src/task'
+
 const IndexPage: NextPage = () => {
+  const [tasks, setTasks] = React.useState<Task[]>([]) 
+  const [nextId, setNextId] = React.useState(0)
+  const completeHandler = (completed: Task) => {
+    setTasks(tasks.filter((t) => t != completed))
+  }
+
   return (
-    <Layout title="Home | Next.js + TypeScript Example">
-      <h1>Hello Next.js 👋</h1>
-      <p>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-      </p>
+    <Layout title="Todolist">
+      <h1>Todolist</h1>
+      <TodoInput onAddTask={(taskName) => {
+        setTasks(tasks.concat({
+          id: nextId,
+          title: taskName,
+        }))
+        setNextId(nextId + 1)
+      }} />
+      <TaskList tasks={tasks} onComplete={completeHandler} />
     </Layout>
   )
 }
