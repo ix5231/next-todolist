@@ -1,6 +1,4 @@
-type Task = {
+export default interface Task {
   id: number,
   title: string,
 }
-
-export default Task

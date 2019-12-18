@@ -1,32 +1,23 @@
 import * as React from 'react'
 import { NextPage } from 'next'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 
 import Layout from '../components/Layout'
 import TodoInput from '../components/TodoInput'
 import TaskList from '../components/TaskList'
+import todoApp from '../src/redux/reducers'
 
-import Task from '../src/task'
+const store = createStore(todoApp)
 
-const IndexPage: NextPage = () => {
-  const [tasks, setTasks] = React.useState<Task[]>([]) 
-  const [nextId, setNextId] = React.useState(0)
-  const completeHandler = (completed: Task) => {
-    setTasks(tasks.filter((t) => t != completed))
-  }
-
-  return (
+const IndexPage: NextPage = () => (
+  <Provider store={store}>
     <Layout title="Todolist">
       <h1>Todolist</h1>
-      <TodoInput onAddTask={(taskName) => {
-        setTasks(tasks.concat({
-          id: nextId,
-          title: taskName,
-        }))
-        setNextId(nextId + 1)
-      }} />
-      <TaskList tasks={tasks} onComplete={completeHandler} />
+      <TodoInput />
+      <TaskList />
     </Layout>
-  )
-}
+  </Provider>
+)
 
 export default IndexPage
