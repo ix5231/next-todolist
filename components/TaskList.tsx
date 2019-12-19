@@ -19,7 +19,7 @@ const TaskListBase: React.FC<Props> = ({tasks, onComplete}) => (
   <List>
     {
       tasks.map((task) =>
-        <ListItem key={task.id}>
+        <ListItem key={task.id} style={task.completed ? { textDecoration: 'line-through' } : {}}>
           <Checkbox onChange={(_e: React.ChangeEvent) => {
             onComplete(task.id)
           }} /> {task.title}

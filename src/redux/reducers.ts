@@ -19,9 +19,20 @@ const todoApp = (state = initialState, action: TodoActions): TodoState => {
         tasks: state.tasks.concat({
           id: state.nextId,
           title: action.payload.title,
+          completed: false,
         })
       }
     case ActionType.COMPLETE_TASK:
+      return {
+        ...state,
+        tasks: state.tasks.map(t => (
+          t.id === action.payload.id ? {
+            ...t,
+            completed: true,
+          } : t
+        ))
+      }
+    case ActionType.DELETE_TASK:
       return {
         ...state,
         tasks: state.tasks.filter((t) => t.id != action.payload.id),
