@@ -1,41 +1,41 @@
-import Task from '../task'
+import Todo from '../todo'
 import { ActionType, TodoActions } from './actions'
 
 export interface TodoState {
   nextId: number,
-  tasks: Task[]
+  todos: Todo[]
 }
 
 const initialState: TodoState = {
   nextId: 0,
-  tasks: []
+  todos: []
 }
 
 const todoApp = (state = initialState, action: TodoActions): TodoState => {
   switch (action.type) {
-    case ActionType.ADD_TASK:
+    case ActionType.ADD_TODO:
       return {
         nextId: state.nextId + 1,
-        tasks: state.tasks.concat({
+        todos: state.todos.concat({
           id: state.nextId,
           title: action.payload.title,
           completed: false,
         })
       }
-    case ActionType.COMPLETE_TASK:
+    case ActionType.COMPLETE_TODO:
       return {
         ...state,
-        tasks: state.tasks.map(t => (
+        todos: state.todos.map(t => (
           t.id === action.payload.id ? {
             ...t,
             completed: true,
           } : t
         ))
       }
-    case ActionType.DELETE_TASK:
+    case ActionType.DELETE_TODO:
       return {
         ...state,
-        tasks: state.tasks.filter((t) => t.id != action.payload.id),
+        todos: state.todos.filter((t) => t.id != action.payload.id),
       }
     default:
       return state

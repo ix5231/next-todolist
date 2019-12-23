@@ -6,23 +6,23 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Checkbox from '@material-ui/core/Checkbox'
 
-import Task from '../src/task'
-import { completeTask, TodoActions } from '../src/redux/actions'
+import Todo from '../src/todo'
+import { completeTodo, TodoActions } from '../src/redux/actions'
 import { TodoState } from '../src/redux/reducers'
 
 type Props = {
-  tasks: Task[],
+  todos: Todo[],
   onComplete: (completed: number) => void,
 }
 
-const TaskListBase: React.FC<Props> = ({tasks, onComplete}) => (
+const TodoListBase: React.FC<Props> = ({todos, onComplete}) => (
   <List>
     {
-      tasks.map((task) =>
-        <ListItem key={task.id} style={task.completed ? { textDecoration: 'line-through' } : {}}>
+      todos.map((todo) =>
+        <ListItem key={todo.id} style={todo.completed ? { textDecoration: 'line-through' } : {}}>
           <Checkbox onChange={(_e: React.ChangeEvent) => {
-            onComplete(task.id)
-          }} /> {task.title}
+            onComplete(todo.id)
+          }} /> {todo.title}
         </ListItem>
       )
     }
@@ -31,16 +31,16 @@ const TaskListBase: React.FC<Props> = ({tasks, onComplete}) => (
 
 const mapStateToProps = (state: TodoState) => (
   {
-    tasks: state.tasks
+    todos: state.todos
   }
 )
 
 const mapDispatchToProps = (dispatch: Dispatch<TodoActions>) => (
   {
-    onComplete: (id: number) => dispatch(completeTask(id))
+    onComplete: (id: number) => dispatch(completeTodo(id))
   }
 )
 
-const TaskList = connect(mapStateToProps, mapDispatchToProps)(TaskListBase)
+const TodoList = connect(mapStateToProps, mapDispatchToProps)(TodoListBase)
 
-export default TaskList
+export default TodoList

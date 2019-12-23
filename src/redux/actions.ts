@@ -1,57 +1,57 @@
 import { Action } from 'redux'
 
 export enum ActionType {
-  ADD_TASK = 'ADD_TASK',
-  COMPLETE_TASK = 'COMPLETE_TASK',
-  DELETE_TASK = 'DELETE_TASK',
+  ADD_TODO = 'ADD_TODO',
+  COMPLETE_TODO = 'COMPLETE_TODO',
+  DELETE_TODO = 'DELETE_TODO',
 }
 
-interface AddTaskAction extends Action {
-  type: ActionType.ADD_TASK,
+interface AddTodoAction extends Action {
+  type: ActionType.ADD_TODO,
   payload: {
     title: string
   }
 }
 
-export const addTask = (title: string): AddTaskAction => (
+export const addTodo = (title: string): AddTodoAction => (
   {
-    type: ActionType.ADD_TASK,
+    type: ActionType.ADD_TODO,
     payload: {
       title: title
     }
   }
 )
 
-interface CompleteTaskAction extends Action {
-  type: ActionType.COMPLETE_TASK,
+interface CompleteTodoAction extends Action {
+  type: ActionType.COMPLETE_TODO,
   payload: {
     id: number
   }
 }
 
-export const completeTask = (id: number): CompleteTaskAction => (
+export const completeTodo = (id: number): CompleteTodoAction => (
   {
-    type: ActionType.COMPLETE_TASK,
+    type: ActionType.COMPLETE_TODO,
     payload: {
       id: id
     }
   }
 )
 
-interface DeleteTaskAction extends Action {
-  type: ActionType.DELETE_TASK,
+interface DeleteTodoAction extends Action {
+  type: ActionType.DELETE_TODO,
   payload: {
     id: number
   }
 }
 
-export const deleteTask = (id: number): DeleteTaskAction => (
+export const deleteTodo = (id: number): DeleteTodoAction => (
   {
-    type: ActionType.DELETE_TASK,
+    type: ActionType.DELETE_TODO,
     payload: {
       id: id
     }
   }
 )
 
-export type TodoActions = AddTaskAction | CompleteTaskAction | DeleteTaskAction
+export type TodoActions = AddTodoAction | CompleteTodoAction | DeleteTodoAction

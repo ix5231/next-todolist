@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 
 import Layout from '../components/Layout'
 import TodoInput from '../components/TodoInput'
-import TaskList from '../components/TaskList'
+import TodoList from '../components/TodoList'
 import todoApp from '../src/redux/reducers'
 
 const store = createStore(todoApp)
@@ -15,7 +15,7 @@ const IndexPage: NextPage = () => (
     <Layout title="Todolist">
       <h1>Todolist</h1>
       <TodoInput />
-      <TaskList />
+      <TodoList />
     </Layout>
   </Provider>
 )

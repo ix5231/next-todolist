@@ -5,36 +5,36 @@ import { connect } from 'react-redux'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 
-import { TodoActions, addTask } from '../src/redux/actions'
+import { TodoActions, addTodo } from '../src/redux/actions'
 
 type Props = {
-  onAddTask?: (taskName: string) => void
+  onAddTodo?: (todoName: string) => void
 }
 
-const TodoInputBase: FC<Props> = ({ onAddTask }) => {
-  const [taskName, setTaskName] = useState('')
-  const taskInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setTaskName(event.target.value)
+const TodoInputBase: FC<Props> = ({ onAddTodo }) => {
+  const [todoName, setTodoName] = useState('')
+  const todoInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setTodoName(event.target.value)
   }
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (onAddTask && taskName) {
-      onAddTask(taskName)
-      setTaskName('')
+    if (onAddTodo && todoName) {
+      onAddTodo(todoName)
+      setTodoName('')
     }
   }
 
   return (
     <form onSubmit={submitHandler}>
       <Button type='submit' color='primary'>+</Button>
-      <TextField id='name' value={taskName} onChange={taskInputHandler} />
+      <TextField id='name' value={todoName} onChange={todoInputHandler} />
     </form>
   )
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<TodoActions>) => (
   {
-    onAddTask: (title: string) => dispatch(addTask(title))
+    onAddTodo: (title: string) => dispatch(addTodo(title))
   }
 )
 
