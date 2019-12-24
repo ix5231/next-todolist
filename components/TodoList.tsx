@@ -5,17 +5,19 @@ import { Dispatch } from 'redux'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Checkbox from '@material-ui/core/Checkbox'
+import Button from '@material-ui/core/Button'
 
 import Todo from '../src/todo'
-import { completeTodo, TodoActions } from '../src/redux/actions'
+import { completeTodo, deleteTodo, TodoActions } from '../src/redux/actions'
 import { TodoState } from '../src/redux/reducers'
 
 type Props = {
   todos: Todo[],
   onComplete: (completed: number) => void,
+  onDelete: (deleted: number) => void,
 }
 
-const TodoListBase: React.FC<Props> = ({todos, onComplete}) => (
+const TodoListBase: React.FC<Props> = ({todos, onComplete, onDelete}) => (
   <List>
     {
       todos.map((todo) =>
@@ -23,6 +25,9 @@ const TodoListBase: React.FC<Props> = ({todos, onComplete}) => (
           <Checkbox onChange={(_e: React.ChangeEvent) => {
             onComplete(todo.id)
           }} /> {todo.title}
+          <Button color='secondary' onClick={(_e: React.MouseEvent) => {
+            onDelete(todo.id)
+          }}>Delete</Button>
         </ListItem>
       )
     }
@@ -37,7 +42,8 @@ const mapStateToProps = (state: TodoState) => (
 
 const mapDispatchToProps = (dispatch: Dispatch<TodoActions>) => (
   {
-    onComplete: (id: number) => dispatch(completeTodo(id))
+    onComplete: (id: number) => dispatch(completeTodo(id)),
+    onDelete: (id: number) => dispatch(deleteTodo(id))
   }
 )
 
